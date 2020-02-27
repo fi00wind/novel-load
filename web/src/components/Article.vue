@@ -8,6 +8,7 @@
         <div class="operate">
             <mt-button icon="back" class="operate-back" @click="back()"></mt-button>
             <mt-button icon="success" class="operate-success" @click="hasRead()"></mt-button>
+            <mt-button  class="operate-next" @click="next()">&gt;</mt-button>
         </div>
     </div>
 </template>
@@ -42,7 +43,30 @@
             back() {
                 this.$router.go(-1)
             },
-        }
+            next() {
+                this.$axios.get("/novel/service/article/next/",{
+                    params:{
+                        id:this.article.bookId,
+                        mark:this.article.mark+1
+                    }
+                }).then(res=>{
+                    if (res.status == 200) {
+                        let data = res.data
+                        console.log(data)
+                        if (data.code == '0000') {
+                            this.article = data.data
+                            this.backTop()
+                            this.$router.push('/article/'+data.id)
+                        }
+                    }
+                })
+            },
+            backTop () {
+                document.body.scrollTop = 0
+                document.documentElement.scrollTop = 0
+            },
+
+        }//method
     }
 </script>
 
@@ -52,10 +76,13 @@
     width: 100%;
 }
     .operate-back{
-        width: 50%;
+        width: 33.33%;
     }
     .operate-success{
-        width: 50%;
+        width: 33.33%;
         background-color: darkseagreen;
+    }
+    .operate-next{
+        width: 33.33%;
     }
 </style>

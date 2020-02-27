@@ -23,6 +23,7 @@
 </template>
 
 <script>
+    import { Indicator } from 'mint-ui';
     export default {
         name: "Book",
         data() {
@@ -37,10 +38,13 @@
         },
         methods:{
             loadLatest() {
+                Indicator.open();
                 this.$axios.get("/novel/service/book/load/"+this.id).then(res=>{
                     if (res.status == 200) {
                         this.loadArticle();
                     }
+                }).finally(()=>{
+                    Indicator.close()
                 })
             },
             loadArticle() {

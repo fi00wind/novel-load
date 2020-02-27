@@ -5,6 +5,7 @@ import cn.coolwind.novel.entity.BookEntity;
 import cn.coolwind.novel.repository.ArticleRepository;
 import cn.coolwind.novel.repository.BookRepository;
 import cn.coolwind.novel.service.BookService;
+import com.alibaba.fastjson.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -34,9 +35,12 @@ public class BookServiceImpl implements BookService {
     public void loadBook(int id) {
         BookEntity book = bookRepository.getOne(id);
         String title = book.getLastTitle();
-        String last = loadBook(book.getUrl(), title, id);
-        if (!title.equals(last)) {
-            book.setLastTitle(last);
+        JSONObject last = loadBook(book.getUrl(), title, id,book.getMark());
+        String lastTitle = last.getString("title");
+        Integer lastMark = last.getInteger("mark");
+        if (!title.equals(lastTitle) && book.getMark() != lastMark) {
+            book.setLastTitle(lastTitle);
+            book.setMark(lastMark);
             bookRepository.save(book);
         }
     }
@@ -46,7 +50,7 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findAll();
     }
 
-    private String loadBook(String url,String max,int bookId) {
+    private JSONObject loadBook(String url, String max, int bookId, int mark) {
         try {
             Document document = Jsoup.connect(url).get();
             Elements elements = document.getElementsByTag("a");
@@ -72,6 +76,7 @@ public class BookServiceImpl implements BookService {
                     articleEntity.setBookId(bookId);
                     articleEntity.setContent(html);
                     articleEntity.setTitle(max);
+                    articleEntity.setMark(++mark);
                     articleEntity.setLastTime(new Date());
                     articleRepository.save(articleEntity);
                 }
@@ -79,7 +84,10 @@ public class BookServiceImpl implements BookService {
         } catch (IOException e) {
             e.printStackTrace();
         }finally {
-            return max;
+            JSONObject res = new JSONObject();
+            res.put("title",max);
+            res.put("mark",mark);
+            return res;
         }
     }
 }

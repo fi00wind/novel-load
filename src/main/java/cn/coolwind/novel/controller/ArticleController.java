@@ -29,4 +29,9 @@ public class ArticleController {
         Object res = articleService.getById(id);
         return res;
     }
+
+    @GetMapping("next")
+    public Object next(int id, int mark) {
+        return articleService.getNextArticle(id,mark);
+    }
 }

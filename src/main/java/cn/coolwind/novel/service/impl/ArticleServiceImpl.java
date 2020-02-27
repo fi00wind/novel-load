@@ -4,6 +4,7 @@ import cn.coolwind.novel.entity.ArticleEntity;
 import cn.coolwind.novel.entity.ArticleSimple;
 import cn.coolwind.novel.repository.ArticleRepository;
 import cn.coolwind.novel.service.ArticleService;
+import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,20 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Object getById(int id) {
         return articleRepository.getOne(id);
+    }
+
+    @Override
+    public Object getNextArticle(int id, int mark) {
+        JSONObject res = new JSONObject();
+        ArticleEntity article = articleRepository.getByBookIdAndMark(id, mark);
+        if (article != null) {
+            res.put("code", "0000");
+            res.put("id",article.getId());
+            res.put("data",article);
+        }else {
+            res.put("code", "1111");
+        }
+        return res;
     }
 
     @Override

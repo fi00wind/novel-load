@@ -33,4 +33,6 @@ public class ArticleEntity implements Serializable {
     @Column(name = "last_time")
     private Date lastTime;
 
+    @Column(name = "mark")
+    private Integer mark;
 }

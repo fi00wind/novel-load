@@ -33,4 +33,6 @@ public class BookEntity implements Serializable {
     @Column(name = "last_title")
     private String lastTitle;
 
+    @Column(name = "mark")
+    private Integer mark;
 }

@@ -6,4 +6,6 @@ public interface ArticleService {
     Object getById(int id);
 
     Object setHasRead(int articleId);
+
+    Object getNextArticle(int id, int mark);
 }
