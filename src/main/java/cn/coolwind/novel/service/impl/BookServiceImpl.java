@@ -26,6 +26,11 @@ public class BookServiceImpl implements BookService {
     private ArticleRepository articleRepository;
 
     @Override
+    public Object add(BookEntity bookEntity) {
+        return bookRepository.save(bookEntity);
+    }
+
+    @Override
     public void loadBook(int id) {
         BookEntity book = bookRepository.getOne(id);
         String title = book.getLastTitle();

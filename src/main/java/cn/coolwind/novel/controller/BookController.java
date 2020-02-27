@@ -1,11 +1,9 @@
 package cn.coolwind.novel.controller;
 
+import cn.coolwind.novel.entity.BookEntity;
 import cn.coolwind.novel.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("book")
@@ -23,5 +21,10 @@ public class BookController {
     public Object load(@PathVariable(name = "id") int id) {
         bookService.loadBook(id);
         return "ok!";
+    }
+
+    @PostMapping("add")
+    public Object add(@RequestBody BookEntity bookEntity) {
+        return bookService.add(bookEntity);
     }
 }
