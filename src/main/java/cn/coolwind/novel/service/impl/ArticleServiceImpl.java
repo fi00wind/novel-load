@@ -19,8 +19,16 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public Object setHasRead(int articleId) {
+        ArticleEntity article = articleRepository.getOne(articleId);
+        article.setSee(true);
+        articleRepository.save(article);
+        return true;
+    }
+
+    @Override
     public Object getByBookId(int bookId) {
-        return articleRepository.getAllByBookIdOrderByLastTimeDesc(bookId)
+        return articleRepository.getAllByBookIdOrderByIdDesc(bookId)
                 .stream()
                 .map(this::articleSimpleConvert);
     }

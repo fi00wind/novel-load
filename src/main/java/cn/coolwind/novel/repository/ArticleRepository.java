@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<ArticleEntity,Integer>, JpaSpecificationExecutor<ArticleEntity> {
 
-    List<ArticleEntity> getAllByBookIdOrderByLastTimeDesc(int id);
+    List<ArticleEntity> getAllByBookIdOrderByIdDesc(int id);
 }

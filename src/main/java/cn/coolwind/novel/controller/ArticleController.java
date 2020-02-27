@@ -19,6 +19,11 @@ public class ArticleController {
         return articleService.getByBookId(bookId);
     }
 
+    @GetMapping("read/{id}")
+    public Object read(@PathVariable(name = "id") int articleId) {
+        return articleService.setHasRead(articleId);
+    }
+
     @GetMapping("{id}")
     public Object showArticle(@PathVariable(name = "id") int id){
         Object res = articleService.getById(id);
