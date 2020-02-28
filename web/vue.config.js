@@ -20,7 +20,7 @@ if (process.env.NODE_ENV === 'development') {
 
 module.exports = {
     outputDir: '../src/main/resources/static',
-    publicPath: '/novel/service',
+    publicPath: '/',
     devServer: devServer,
     configureWebpack: {
 

@@ -9,7 +9,6 @@ Vue.use(Router)
 
 
 const router = new Router({
-    base:'/novel/service/',
     mode: 'history',
     routes: [
         {
@@ -21,11 +20,6 @@ const router = new Router({
             path: '/article/:id',
             name: 'Article',
             component: Article
-        },
-        {
-            path: '/book/list',
-            name: 'List',
-            component: List
         },
         {
             path: '/book/:id',

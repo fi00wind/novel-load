@@ -3,11 +3,11 @@
             <mt-button @click="back()" icon="back"  style="width: 30%">
             </mt-button>
         <h1> {{ article.title }}</h1>
-        <div v-html="article.content" >
+        <div class="content" v-html="article.content" >
         </div>
         <div class="operate">
             <mt-button icon="back" class="operate-back" @click="back()"></mt-button>
-            <mt-button icon="success" class="operate-success" @click="hasRead()"></mt-button>
+<!--            <mt-button icon="success" class="operate-success" @click="hasRead()"></mt-button>-->
             <mt-button  class="operate-next" @click="next()">&gt;</mt-button>
         </div>
     </div>
@@ -34,16 +34,13 @@
         },
         methods:{
             hasRead() {
-                this.$axios.get("/novel/service/article/read/"+this.id).then(res=>{
-                    if (res.status == 200) {
-                        this.back()
-                    }
-                })
+                this.$axios.get("/novel/service/article/read/"+this.id)
             },
             back() {
-                this.$router.go(-1)
+                this.$router.push('/book/'+this.article.bookId)
             },
             next() {
+                this.hasRead()
                 this.$axios.get("/novel/service/article/next/",{
                     params:{
                         id:this.article.bookId,
@@ -57,6 +54,8 @@
                             this.article = data.data
                             this.backTop()
                             this.$router.push('/article/'+data.id)
+                        }else {
+                            this.back()
                         }
                     }
                 })
@@ -76,13 +75,16 @@
     width: 100%;
 }
     .operate-back{
-        width: 33.33%;
+        width: 50%;
     }
     .operate-success{
-        width: 33.33%;
+        width: 50%;
         background-color: darkseagreen;
     }
     .operate-next{
-        width: 33.33%;
+        width: 50%;
+    }
+    .content {
+        font-size: 1.3em;
     }
 </style>

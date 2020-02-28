@@ -36,8 +36,10 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Object setHasRead(int articleId) {
         ArticleEntity article = articleRepository.getOne(articleId);
-        article.setSee(true);
-        articleRepository.save(article);
+        if (article.getSee()==null || !article.getSee()) {
+            article.setSee(true);
+            articleRepository.save(article);
+        }
         return true;
     }
 
