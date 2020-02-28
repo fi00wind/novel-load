@@ -3,7 +3,7 @@
         <mt-cell
                 v-for="item in books"
                 :key="item.id"
-                :title="item.nick"
+                :title="item.name"
                 :to="'/book/'+item.id"
                 is-link
         >
