@@ -15,8 +15,8 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/login").permitAll()
-                .anyRequest().authenticated()
+                .antMatchers("/").authenticated()
+                .antMatchers("/**").permitAll()
         .and()
         .formLogin();
     }
@@ -25,7 +25,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.inMemoryAuthentication()
                 .passwordEncoder(new BCryptPasswordEncoder())
-                .withUser("aaa")
+                .withUser("F")
                 .password(new BCryptPasswordEncoder().encode("fff@111"))
                 .roles("admin");
     }

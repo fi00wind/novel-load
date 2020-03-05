@@ -40,10 +40,10 @@
                 this.$router.push('/book/'+this.article.bookId)
             },
             next() {
-                this.hasRead()
                 this.$axios.get("/novel/service/article/next/",{
                     params:{
-                        id:this.article.bookId,
+                        id:this.article.id,
+                        bookId:this.article.bookId,
                         mark:this.article.mark+1
                     }
                 }).then(res=>{

@@ -31,7 +31,7 @@ public class ArticleController {
     }
 
     @GetMapping("next")
-    public Object next(int id, int mark) {
-        return articleService.getNextArticle(id,mark);
+    public Object next(int id, int mark,int bookId) {
+        return articleService.getNextArticle(id,mark,bookId);
     }
 }

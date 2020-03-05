@@ -9,6 +9,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class ArticleServiceImpl implements ArticleService {
     @Autowired
@@ -20,9 +22,10 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Object getNextArticle(int id, int mark) {
+    public Object getNextArticle(int id, int mark, int bookId) {
         JSONObject res = new JSONObject();
-        ArticleEntity article = articleRepository.getByBookIdAndMark(id, mark);
+        setHasRead(id);
+        ArticleEntity article = articleRepository.getByBookIdAndMark(bookId, mark);
         if (article != null) {
             res.put("code", "0000");
             res.put("id",article.getId());
@@ -54,5 +57,10 @@ public class ArticleServiceImpl implements ArticleService {
         ArticleSimple res = new ArticleSimple();
         BeanUtils.copyProperties(articleEntity,res);
         return res;
+    }
+
+    @Override
+    public void deleteHasSeeBeforeTime(Date time) {
+        articleRepository.deleteBySeeAndLastTimeBefore(true,time);
     }
 }
