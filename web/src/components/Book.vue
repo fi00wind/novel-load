@@ -48,10 +48,13 @@
                 })
             },
             loadArticle() {
+                Indicator.open();
                 this.$axios.get("/novel/service/article/list/"+this.id).then(res=>{
                     if (res.status == 200) {
                         this.articles = res.data;
                     }
+                }).finally(()=>{
+                    Indicator.close()
                 })
             }
         }
