@@ -24,6 +24,7 @@
 
 <script>
     import { Indicator } from 'mint-ui';
+    import { MessageBox  } from 'mint-ui';
     export default {
         name: "Book",
         data() {
@@ -42,6 +43,11 @@
                 this.$axios.get("/novel/service/book/load/"+this.id).then(res=>{
                     if (res.status == 200) {
                         this.loadArticle();
+                        let msg = '加载失败'
+                        if (res.data == "ok") {
+                            msg = '加载成功'
+                        }
+                        MessageBox('提示', msg);
                     }
                 }).finally(()=>{
                     Indicator.close()

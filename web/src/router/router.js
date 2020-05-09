@@ -9,6 +9,7 @@ Vue.use(Router)
 
 
 const router = new Router({
+    base:'/web/',
     mode: 'history',
     routes: [
         {
