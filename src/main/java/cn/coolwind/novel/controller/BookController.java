@@ -19,8 +19,13 @@ public class BookController {
 
     @GetMapping("load/{id}")
     public Object load(@PathVariable(name = "id") int id) {
-        bookService.loadBook(id);
-        return "ok!";
+        try {
+            bookService.loadBook(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "err";
+        }
+        return "ok";
     }
 
     @PostMapping("add")
