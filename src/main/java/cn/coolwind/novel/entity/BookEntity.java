@@ -10,7 +10,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "book", schema = "novel")
 @Data
-@JsonIgnoreProperties(value = { "hibernateLazyInitializer", "handler" })
+@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler"})
 public class BookEntity implements Serializable {
 
     @Id
@@ -35,4 +35,7 @@ public class BookEntity implements Serializable {
 
     @Column(name = "mark")
     private Integer mark;
+
+    @Column(name = "auto_load")
+    private Integer antoLoad;
 }

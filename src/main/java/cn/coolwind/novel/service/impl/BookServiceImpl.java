@@ -41,6 +41,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public List<BookEntity> getAutoLoadBooks() {
+        return bookRepository.getAllByAntoLoad(1);
+    }
+
+    @Override
     public void loadBook(int id) throws Exception {
         BookEntity book = bookRepository.getOne(id);
         String title = book.getLastTitle();
