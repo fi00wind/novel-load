@@ -42,12 +42,12 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<BookEntity> getAutoLoadBooks() {
-        return bookRepository.getAllByAntoLoad(1);
+        return bookRepository.getAllByAutoLoad(1);
     }
 
     @Override
     public void loadBook(int id) throws Exception {
-        BookEntity book = bookRepository.getOne(id);
+        BookEntity book = bookRepository.getById(id);
         String title = book.getLastTitle();
         JSONObject last = loadBook(book.getUrl(), title, id,book.getMark());
         String lastTitle = last.getString("title");

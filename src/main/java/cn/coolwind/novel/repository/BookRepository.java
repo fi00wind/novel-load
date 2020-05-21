@@ -7,5 +7,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
 public interface BookRepository extends JpaRepository<BookEntity, Integer>, JpaSpecificationExecutor<BookEntity> {
-    List<BookEntity> getAllByAntoLoad(Integer load);
+    List<BookEntity> getAllByAutoLoad(Integer load);
+
+    BookEntity getById(Integer id);
 }

@@ -37,5 +37,5 @@ public class BookEntity implements Serializable {
     private Integer mark;
 
     @Column(name = "auto_load")
-    private Integer antoLoad;
+    private Integer autoLoad;
 }

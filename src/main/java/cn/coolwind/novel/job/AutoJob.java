@@ -30,18 +30,20 @@ public class AutoJob {
         log.info("---------------删除已读文章成功！");
     }
 
-    @Scheduled(cron = "0 0 2 * *  ?")
+    @Scheduled(cron = "0 30 1 * *  ?")
     public void loadLatest() {
+        log.info("--------------------------------自动加载最新文章");
             bookService.getAutoLoadBooks()
                     .stream()
-                    .map(BookEntity::getId)
-                    .forEach(id-> {
+                    .forEach(book-> {
                         try {
-                            bookService.loadBook(id);
+                            bookService.loadBook(book.getId());
                         } catch (Exception e) {
+                            log.error("*********************加载文章失败:"+book.getName());
                             e.printStackTrace();
                         }
                     });
+        log.info("--------------------------------自动加载最新文章结束");
         }
 
 }
